@@ -149,6 +149,8 @@ Rails.application.routes.draw do
     resources :aliases, only: [:index, :create, :destroy]
     resources :sessions, only: [:destroy]
     resources :featured_tags, only: [:index, :create, :destroy]
+
+    resource :regret, only: [:show, :new, :create]
   end
 
   resources :media, only: [:show] do

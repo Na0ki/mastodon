@@ -6,6 +6,8 @@
       %span.negative-hint= t('user_mailer.warning.explanation.suspend')
     - elsif @user.disabled?
       %span.negative-hint= t('user_mailer.warning.explanation.disable')
+      %div
+        = link_to '反省文を書く', new_settings_regret_path, class: "button#{@user.regret ? ' disabled' : ''}"
     - elsif @user.account.silenced?
       %span.warning-hint= t('user_mailer.warning.explanation.silence')
     - elsif !@user.confirmed?

@@ -1,0 +1,10 @@
+- content_for :page_title do
+  = '反省文を書く'
+
+= simple_form_for @regret, url: settings_regret_path do |f|
+  = render 'shared/error_messages', object: @regret
+
+  = f.input :body, wrapper: :with_block_label, input_html: { maxlength: 4000 }, hint: '100文字以上、4000文字以内であなたの誠意が伝わるようなメッセージを書いてください。'
+
+  .actions
+    = f.button :button, '送信', type: :submit

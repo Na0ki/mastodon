@@ -218,6 +218,17 @@
 
   %hr.spacer/
 
+  - if @account.user&.regret
+    %h4= '反省文'
+    .speech-bubble
+      .speech-bubble__bubble
+        = Formatter.instance.linkify(@account.user.regret.body)
+      .speech-bubble__owner
+        = compact_account_link_to @account
+        %time.formatted{ datetime: @account.user.regret.created_at.iso8601 }= l @account.user.regret.created_at
+
+    %hr.spacer/
+
   - unless @warnings.empty?
     = render @warnings
 
