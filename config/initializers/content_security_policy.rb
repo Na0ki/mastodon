@@ -49,7 +49,17 @@ end
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
 # Rails.application.config.content_security_policy_report_only = true
 
-PgHero::HomeController.content_security_policy do |p|
-  p.script_src :self, :unsafe_inline, assets_host
-  p.style_src  :self, :unsafe_inline, assets_host
+Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
+
+Rails.application.config.content_security_policy_nonce_directives = %w(style-src)
+
+Rails.application.reloader.to_prepare do
+  PgHero::HomeController.content_security_policy do |p|
+    p.script_src :self, :unsafe_inline, assets_host
+    p.style_src  :self, :unsafe_inline, assets_host
+  end
+
+  PgHero::HomeController.after_action do
+    request.content_security_policy_nonce_generator = nil
+  end
 end

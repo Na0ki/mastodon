@@ -4,7 +4,15 @@ th:
     attributes:
       poll:
         expires_at: กำหนดเวลาสิ้นสุด
-        options: ทางเลือก
+        options: ตัวเลือก
+      user:
+        agreement: ข้อตกลงการให้บริการ
+        email: ที่อยู่อีเมล
+        password: รหัสผ่าน
+      user/account:
+        username: ชื่อผู้ใช้
+      user/invite_request:
+        text: เหตุผล
     errors:
       models:
         account:
@@ -14,4 +22,8 @@ th:
         status:
           attributes:
             reblog:
-              taken: มีสถานะอยู่แล้ว
+              taken: ของสถานะมีอยู่แล้ว
+        user:
+          attributes:
+            email:
+              blocked: ใช้ผู้ให้บริการอีเมลที่ไม่ได้รับอนุญาต

@@ -38,7 +38,7 @@
           = text_field_tag key, params[key], class: 'string optional', placeholder: I18n.t("admin.accounts.#{key}")
 
     .actions
-      %button= t('admin.accounts.search')
+      %button.button= t('admin.accounts.search')
       = link_to t('admin.accounts.reset'), admin_accounts_path, class: 'button negative'
 
 .table-wrapper
@@ -51,6 +51,6 @@
         %th= t('admin.accounts.most_recent_activity')
         %th
     %tbody
-      = render @accounts
+      = render partial: 'account', collection: @accounts
 
 = paginate @accounts

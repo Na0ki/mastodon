@@ -2,6 +2,7 @@
 
 module SettingsHelper
   HUMAN_LOCALES = {
+    af: 'Afrikaans',
     ar: 'العربية',
     ast: 'Asturianu',
     bg: 'Български',
@@ -24,6 +25,7 @@ module SettingsHelper
     fi: 'Suomi',
     fr: 'Français',
     ga: 'Gaeilge',
+    gd: 'Gàidhlig',
     gl: 'Galego',
     he: 'עברית',
     hi: 'हिन्दी',
@@ -40,6 +42,7 @@ module SettingsHelper
     kk: 'Қазақша',
     kn: 'ಕನ್ನಡ',
     ko: '한국어',
+    ku: 'سۆرانی',
     lt: 'Lietuvių',
     lv: 'Latviešu',
     mk: 'Македонски',
@@ -56,6 +59,9 @@ module SettingsHelper
     pt: 'Português',
     ro: 'Română',
     ru: 'Русский',
+    sa: 'संस्कृतम्',
+    sc: 'Sardu',
+    si: 'සිංහල',
     sk: 'Slovenčina',
     sl: 'Slovenščina',
     sq: 'Shqip',
@@ -69,6 +75,7 @@ module SettingsHelper
     uk: 'Українська',
     ur: 'اُردُو',
     vi: 'Tiếng Việt',
+    zgh: 'ⵜⴰⵎⴰⵣⵉⵖⵜ',
     'zh-CN': '简体中文',
     'zh-HK': '繁體中文（香港）',
     'zh-TW': '繁體中文（臺灣）',

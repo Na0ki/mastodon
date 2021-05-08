@@ -2,16 +2,23 @@
 es:
   activerecord:
     attributes:
-      poll:
-        expires_at: Vencimiento
-        options: Opciones
+      user:
+        agreement: Acuerdo de Servicio
+        email: Dirección de correo electrónico
+        locale: Idioma
+        password: Contraseña
+      user/account:
+        username: Nombre de usuario
+      user/invite_request:
+        text: Razón
     errors:
       models:
         account:
           attributes:
             username:
-              invalid: sólo letras, números y guiones bajos
-        status:
+              reserved: está reservado
+        user:
           attributes:
-            reblog:
-              taken: del estado ya existe
+            email:
+              blocked: utiliza un proveedor de correo no autorizado
+              unreachable: no parece existir

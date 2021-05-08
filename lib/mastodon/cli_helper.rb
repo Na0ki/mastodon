@@ -7,6 +7,7 @@ ActiveRecord::Base.logger    = dev_null
 ActiveJob::Base.logger       = dev_null
 HttpLog.configuration.logger = dev_null
 Paperclip.options[:log]      = false
+Chewy.logger                 = dev_null
 
 module Mastodon
   module CLIHelper
@@ -24,7 +25,9 @@ module Mastodon
         exit(1)
       end
 
-      ActiveRecord::Base.configurations[Rails.env]['pool'] = options[:concurrency] + 1
+      db_config = ActiveRecord::Base.configurations[Rails.env].dup
+      db_config['pool'] = options[:concurrency] + 1
+      ActiveRecord::Base.establish_connection(db_config)
 
       progress  = create_progress_bar(scope.count)
       pool      = Concurrent::FixedThreadPool.new(options[:concurrency])
