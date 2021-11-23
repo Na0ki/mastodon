@@ -4,6 +4,10 @@ on:
   push:
     paths-ignore:
       - '**/*.md'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
 
 jobs:
   build_and_push:
@@ -17,38 +21,23 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build image
-        run: docker build . --file Dockerfile --tag ${{ github.event.repository.name }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ REGISTRY }}
+          username: ${{ github.actor }}
+          passowrd: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          tags: |
+            type=sha,prefix={{branch}}-
 
-      - name: Push image
-        run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-          CURRENT_BRANCH=$VERSION
-          VERSION="${VERSION}-$(git rev-parse --short ${{ github.sha }})"
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-
-          docker tag ${{ github.event.repository.name }} $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
-
-          echo "current branch: $CURRENT_BRANCH"
-          echo "default branch: ${{ github.event.repository.default_branch }}"
-
-          if [ "$CURRENT_BRANCH" = "${{ github.event.repository.default_branch }}" ]; then
-            echo "push latest"
-            docker tag ${{ github.event.repository.name }} $IMAGE_ID:latest
-            docker push $IMAGE_ID:latest
-          fi
+      - name: build and push Docker Registry
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
