@@ -65,6 +65,3 @@ yarn-debug.log
 
 # Ignore Docker option files
 docker-compose.override.yml
-
-# Ignore github specific configs which are not needed for fork (ex. dependabot.yml, ISSUE_TEMPLATE...)
-.github/
