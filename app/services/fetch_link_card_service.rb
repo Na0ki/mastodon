@@ -2,7 +2,7 @@
 
 class FetchLinkCardService < BaseService
   URL_PATTERN = %r{
-    (#{Twitter::TwitterText::Regex[:valid_url_preceding_chars]})                                                                #   $1 preceeding chars
+    (#{Twitter::TwitterText::Regex[:valid_url_preceding_chars]})                                                                #   $1 preceding chars
     (                                                                                                                           #   $2 URL
       (https?:\/\/)                                                                                                             #   $3 Protocol (required)
       (#{Twitter::TwitterText::Regex[:valid_domain]})                                                                           #   $4 Domain(s)
@@ -50,7 +50,7 @@ class FetchLinkCardService < BaseService
       # We follow redirects, and ideally we want to save the preview card for
       # the destination URL and not any link shortener in-between, so here
       # we set the URL to the one of the last response in the redirect chain
-      @url  = res.request.uri.to_s.to_s
+      @url  = res.request.uri.to_s
       @card = PreviewCard.find_or_initialize_by(url: @url) if @card.url != @url
 
       if res.code == 200 && res.mime_type == 'text/html'
@@ -66,6 +66,7 @@ class FetchLinkCardService < BaseService
   def attach_card
     @status.preview_cards << @card
     Rails.cache.delete(@status)
+    Trends.links.register(@status)
   end
 
   def parse_urls
@@ -133,7 +134,7 @@ class FetchLinkCardService < BaseService
     when 'video'
       @card.width            = embed[:width].presence  || 0
       @card.height           = embed[:height].presence || 0
-      @card.html             = Formatter.instance.sanitize(embed[:html], Sanitize::Config::MASTODON_OEMBED)
+      @card.html             = Sanitize.fragment(embed[:html], Sanitize::Config::MASTODON_OEMBED)
       @card.image_remote_url = (url + embed[:thumbnail_url]).to_s if embed[:thumbnail_url].present?
     when 'rich'
       # Most providers rely on <script> tags, which is a no-no

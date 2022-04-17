@@ -4,8 +4,8 @@
 #
 # Table name: account_statuses_cleanup_policies
 #
-#  id                 :bigint           not null, primary key
-#  account_id         :bigint           not null
+#  id                 :bigint(8)        not null, primary key
+#  account_id         :bigint(8)        not null
 #  enabled            :boolean          default(TRUE), not null
 #  min_status_age     :integer          default(1209600), not null
 #  keep_direct        :boolean          default(TRUE), not null
@@ -23,6 +23,7 @@ class AccountStatusesCleanupPolicy < ApplicationRecord
   include Redisable
 
   ALLOWED_MIN_STATUS_AGE = [
+    1.week.seconds,
     2.weeks.seconds,
     1.month.seconds,
     2.months.seconds,

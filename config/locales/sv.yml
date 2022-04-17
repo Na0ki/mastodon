@@ -16,6 +16,7 @@ sv:
     contact: Kontakt
     contact_missing: Inte inställd
     contact_unavailable: Ej tillämplig
+    continue_to_web: Fortsätt till webbtjänst
     discover_users: Upptäck användare
     documentation: Dokumentation
     federation_hint_html: Med ett konto på %{instance} kommer du att kunna följa personer på alla Mastodon-servers och mer än så.
@@ -23,6 +24,8 @@ sv:
     hosted_on: Mastodon-värd på %{domain}
     instance_actor_flash: "Detta konto är en virtuell agent som används för att representera servern själv och inte någon individuell användare. Det används av sammanslutningsskäl och ska inte blockeras såvitt du inte vill blockera hela instansen, och för detta fall ska domänblockering användas. \n"
     learn_more: Lär dig mer
+    logged_in_as_html: Inloggad som %{username}.
+    logout_before_registering: Du är redan inloggad.
     privacy_policy: Integritetspolicy
     rules: Serverns regler
     rules_html: 'Nedan en sammanfattning av kontoreglerna för denna Mastodonserver:'
@@ -60,13 +63,13 @@ sv:
       one: Följare
       other: Följare
     following: Följer
+    instance_actor_flash: Detta konto är en virtuell aktör som används för att representera servern själv och inte någon enskild användare. Den används för federationsändamål och bör inte upphävas.
     joined: Gick med %{date}
     last_active: senast aktiv
     link_verified_on: Ägarskap för denna länk kontrollerades den %{date}
     media: Media
     moved_html: "%{name} har flyttat till %{new_profile_link}:"
     network_hidden: Denna information är inte tillgänglig
-    never_active: Aldrig
     nothing_here: Det finns inget här!
     people_followed_by: Personer som %{name} följer
     people_who_follow: Personer som följer %{name}
@@ -91,12 +94,10 @@ sv:
     account_moderation_notes:
       create: Lämna kommentar
       created_msg: Modereringsnotering skapad utan problem!
-      delete: Radera
       destroyed_msg: Modereringsnotering borttagen utan problem!
     accounts:
       add_email_domain_block: Blockera e-postdomän
       approve: Godkänn
-      approve_all: Godkänn alla
       are_you_sure: Är du säker?
       avatar: Profilbild
       by_domain: Domän
@@ -110,9 +111,11 @@ sv:
       confirm: Bekräfta
       confirmed: Bekräftad
       confirming: Bekräftande
+      custom: Anpassade
       delete: Radera data
       deleted: Raderad
       demote: Degradera
+      destroyed_msg: "%{username}'s data har nu lagts till kön för att raderas omedelbart"
       disable: inaktivera
       disable_two_factor_authentication: Inaktivera 2FA
       disabled: inaktiverad
@@ -123,6 +126,7 @@ sv:
       email_status: E-poststatus
       enable: Aktivera
       enabled: Aktiverad
+      enabled_msg: Uppfrysningen av %{username}'s konto lyckades
       followers: Följare
       follows: Följs
       header: Rubrik
@@ -139,11 +143,12 @@ sv:
       login_status: Inloggningsstatus
       media_attachments: Media bifogade filer
       memorialize: Förvandla till ett memoriam
+      memorialized: Memorialiserad
+      memorialized_msg: Omvandlingen av %{username} till ett minneskonto lyckades
       moderation:
         active: Aktiv
         all: Alla
         pending: Väntande
-        silenced: Tystas
         suspended: Avstängd
         title: Moderering
       moderation_notes: Moderation anteckning
@@ -154,13 +159,13 @@ sv:
       not_subscribed: Inte prenumererat
       pending: Inväntar granskning
       perform_full_suspension: Utför full avstängning
+      previous_strikes: Tidigare varningar
       promote: Befordra
       protocol: Protokoll
       public: Offentlig
       push_subscription_expires: PuSH-prenumerationen löper ut
       redownload: Uppdatera profil
       reject: Förkasta
-      reject_all: Förkasta allt / Avvisa alla
       remove_avatar: Ta bort avatar
       remove_header: Ta bort rubrik
       resend_confirmation:
@@ -191,10 +196,13 @@ sv:
       silence: Tystnad
       silenced: Tystad / Tystat
       statuses: Status
+      strikes: Föregående varningar
       subscribe: Prenumerera
+      suspend: Stäng av
       suspended: Avstängd / Avstängt
-      time_in_queue: Väntar i kö %{time}
       title: Konton
+      unblock_email: Avblockera e-postadress
+      unblocked_email_msg: "%{username}s e-postadress avblockerad"
       unconfirmed_email: Obekräftad E-postadress
       undo_silenced: Ångra tystnad
       undo_suspension: Ångra avstängning
@@ -206,6 +214,8 @@ sv:
       whitelisted: Vitlistad
     action_logs:
       action_types:
+        approve_appeal: Godkänn överklagande
+        approve_user: Godkänn användare
         assigned_to_self_report: Tilldela anmälan
         change_email_user: Ändra e-post för användare
         confirm_user: Bekräfta användare
@@ -221,6 +231,7 @@ sv:
         destroy_custom_emoji: Radera egen emoji
         destroy_domain_allow: Ta bort tillåten domän
         destroy_domain_block: Ta bort blockerad domän
+        destroy_instance: Rensa domänen
         destroy_ip_block: Radera IP-regel
         destroy_status: Ta bort status
         destroy_unavailable_domain: Ta bort otillgänglig domän
@@ -231,6 +242,8 @@ sv:
         enable_user: Aktivera användare
         memorialize_account: Minnesmärk konto
         promote_user: Befordra användare
+        reject_appeal: Avvisa överklagande
+        reject_user: Avvisa användare
         remove_avatar_user: Ta bort avatar
         reopen_report: Öppna rapporten igen
         reset_password_user: Återställ lösenord
@@ -238,6 +251,8 @@ sv:
         sensitive_account: Markera mediet i ditt konto som känsligt
         silence_account: Tysta konto
         suspend_account: Stäng av konto
+        unassigned_report: Återkalla rapport
+        unblock_email_account: Avblockera e-postadress
         unsuspend_account: Återaktivera konto
         update_announcement: Uppdatera meddelande
         update_custom_emoji: Uppdatera egna emojis
@@ -247,6 +262,7 @@ sv:
         create_account_warning_html: "%{name} skickade en varning till %{target}"
         create_announcement_html: "%{name} skapade tillkännagivande %{target}"
         create_custom_emoji_html: "%{name} laddade upp ny emoji %{target}"
+        create_domain_block_html: "%{name} blockerade domänen %{target}"
         destroy_custom_emoji_html: "%{name} förstörde emoji %{target}"
         destroy_domain_block_html: "%{name} avblockerade domänen %{target}"
         destroy_email_domain_block_html: "%{name} avblockerade e-postdomän %{target}"
@@ -309,7 +325,6 @@ sv:
       enable: Aktivera
       enabled: Aktiverad
       enabled_msg: Aktiverade den emoji utan problem
-      image_hint: PNG upp till 50KB
       list: Lista
       listed: Noterade
       new:
@@ -326,9 +341,18 @@ sv:
       updated_msg: Emoji uppdaterades utan problem!
       upload: Ladda upp
     dashboard:
+      active_users: aktiva användare
+      interactions: interaktioner
+      media_storage: Medialagring
+      new_users: nya användare
       software: Programvara
       space: Utrymmesutnyttjande / Utrymmesanvändning
       title: Kontrollpanel
+      website: Hemsida
+    disputes:
+      appeals:
+        empty: Inga överklaganden hittades.
+        title: Överklaganden
     domain_allows:
       add_new: Vitlistedomän
       created_msg: Domänen har vitlistats
@@ -359,30 +383,13 @@ sv:
       reject_media_hint: Raderar lokalt lagrade mediefiler och förhindrar möjligheten att ladda ner något i framtiden. Irrelevant för suspensioner
       reject_reports: Avvisa rapporter
       reject_reports_hint: Ignorera alla rapporter som kommer från den här domänen. Gäller inte för avstängningar
-      rejecting_media: avvisar media-filer
-      rejecting_reports: avvisar rapporter
-      severity:
-        silence: tystad
-        suspend: avstängd
-      show:
-        affected_accounts:
-          one: Ett konto i databasen drabbades
-          other: "%{count} konton i databasen har drabbats"
-        retroactive:
-          silence: Ta bort tysta ner från alla befintliga konton på den här domänen
-          suspend: Ta bort suspendering från alla befintliga konton på den här domänen
-        title: Ångra domänblockering för %{domain}
-        undo: Ångra
       undo: Ångra
       view: Visa domänblock
     email_domain_blocks:
       add_new: Lägg till ny
       created_msg: E-postdomän har lagts till i domänblockslistan utan problem
       delete: Radera
-      destroyed_msg: E-postdomän har tagits bort från domänblockslistan utan problem
       domain: Domän
-      empty: För tillfället inga svartlistade mejl.
-      from_html: från %{domain}
       new:
         create: Skapa domän
         title: Ny E-postdomänblocklistningsinmatning
@@ -392,6 +399,8 @@ sv:
       status: Status
       title: Följ rekommendationer
     instances:
+      availability:
+        warning: Det senaste försöket att ansluta till denna värddator har misslyckats
       back_to_all: Alla
       back_to_limited: Begränsat
       back_to_warning: Varning
@@ -401,15 +410,9 @@ sv:
         clear: Rensa leverans-fel
         restart: Starta om leverans
         stop: Stoppa leverans
-        title: Leverans
         unavailable: Ej tillgänglig
-        unavailable_message: Leverans otillgängligt
-        warning: Varning
       delivery_available: Leverans är tillgängligt
       empty: Inga domäner hittades.
-      known_accounts:
-        one: "%{count} känt konto"
-        other: "%{count} kända konton"
       moderation:
         all: Alla
         limited: Begränsad
@@ -445,8 +448,6 @@ sv:
         title: Skapa ny IP-regel
       no_ip_block_selected: Inga IP-regler ändrades då inga var valda
       title: IP-regler
-    pending_accounts:
-      title: Väntande konton (%{count})
     relationships:
       title: "%{acct}'s relationer"
     relays:
@@ -469,14 +470,12 @@ sv:
         notes:
           one: "%{count} anteckning"
           other: "%{count} anteckningar"
-        reports:
-          one: "%{count} rapport"
-          other: "%{count} rapporter"
       action_taken_by: Åtgärder vidtagna av
       are_you_sure: Är du säker?
       assign_to_self: Tilldela till mig
       assigned: Tilldelad moderator
       by_target_domain: Domän för rapporterat konto
+      category: Kategori
       comment:
         none: Ingen
       created_at: Anmäld
@@ -484,14 +483,16 @@ sv:
       forwarded_to: Vidarebefordrad till %{domain}
       mark_as_resolved: Markera som löst
       mark_as_unresolved: Markera som olöst
+      no_one_assigned: Ingen
       notes:
         create: Lägg till anteckning
         create_and_resolve: Lös med anteckning
         create_and_unresolve: Återuppta med anteckning
         delete: Radera
         placeholder: Beskriv vilka åtgärder som vidtagits eller andra uppdateringar till den här anmälan.
+        title: Anteckningar
       reopen: Återuppta anmälan
-      report: 'Anmäl #%{id}'
+      report: 'Rapport #%{id}'
       reported_account: Anmält konto
       reported_by: Anmäld av
       resolved: Löst
@@ -502,6 +503,7 @@ sv:
       unassign: Otilldela
       unresolved: Olösta
       updated_at: Uppdaterad
+      view_profile: Visa profil
     rules:
       add_new: Lägg till regel
       delete: Radera
@@ -593,33 +595,25 @@ sv:
       delete: Radera uppladdad fil
     statuses:
       back_to_account: Tillbaka till kontosidan
-      batch:
-        delete: Radera
-        nsfw_off: Markera som ej känslig
-        nsfw_on: Markera som känslig
       deleted: Raderad
-      failed_to_execute: Misslyckades att utföra
       media:
         title: Media
-      no_media: Ingen media
       title: Kontostatus
       with_media: med media
+    strikes:
+      actions:
+        delete_statuses: "%{name} raderade %{target}s inlägg"
+        disable: "%{name} frös %{target}s konto"
+        silence: "%{name} begränsade %{target}s konto"
     system_checks:
       rules_check:
         action: Hantera serverregler
         message_html: Du har inte definierat några serverregler.
-    tags:
-      accounts_today: Unika användare idag
-      accounts_week: Unika användare den här veckan
-      last_active: Senast aktiv
-      most_popular: Mest populära
-      most_recent: Nyligen skapade
-      name: Hashtag
-      reviewed: Granskad
-      title: Hashtaggar
-      trending_right_now: Trenderar just nu
-      unreviewed: Ej granskad
     title: Administration
+    trends:
+      statuses:
+        allow: Godkänn inlägg
+        allow_account: Godkänn författare
     warning_presets:
       add_new: Lägg till ny
       delete: Radera
@@ -634,6 +628,7 @@ sv:
   appearance:
     advanced_web_interface: Avancerat webbgränssnitt
     animations_and_accessibility: Animationer och tillgänglighet
+    confirmation_dialogs: Bekräftelsedialoger
     discovery: Upptäck
     localization:
       body: Mastodon översätts av volontärer.
@@ -669,6 +664,7 @@ sv:
     forgot_password: Glömt ditt lösenord?
     invalid_reset_password_token: Lösenordsåterställningstoken är ogiltig eller utgått. Vänligen be om en ny.
     link_to_otp: Ange en tvåfaktor-kod från din telefon eller en återställningskod
+    log_in_with: Logga in med
     login: Logga in
     logout: Logga ut
     migrate_account: Flytta till ett annat konto
@@ -685,8 +681,10 @@ sv:
     set_new_password: Skriv in nytt lösenord
     setup:
       email_settings_hint_html: Bekräftelsemeddelandet skickades till %{email}. Om den e-postadressen inte stämmer så kan du ändra den i kontoinställningarna.
+      title: Ställ in
     status:
       account_status: Kontostatus
+      confirming: Väntar på att e-postbekräftelsen ska slutföras.
       redirecting_to: Ditt konto är inaktivt eftersom det för närvarande dirigeras om till %{acct}.
     too_fast: Formuläret har skickats för snabbt, försök igen.
     trouble_logging_in: Har du problem med att logga in?
@@ -745,10 +743,14 @@ sv:
     directory: Profil-mapp
     explanation: Upptäck användare baserat på deras intressen
     explore_mastodon: Utforska %{title}
+  disputes:
+    strikes:
+      created_at: Daterad
+      status: 'Inlägg #%{id}'
   domain_validator:
     invalid_domain: är inte ett giltigt domännamn
   errors:
-    '400': The request you submitted was invalid or malformed.
+    '400': Förfrågningen som du skickade in var ogiltig eller felaktigt utformad.
     '403': Du har inte behörighet att visa den här sidan.
     '404': Sidan du letade efter existerar inte.
     '406': Den här sidan är inte tillgänglig i det förfrågade formatet.
@@ -811,25 +813,14 @@ sv:
     validation_errors:
       one: Något är inte riktigt rätt ännu! Kontrollera felet nedan
       other: Något är inte riktigt rätt ännu! Kontrollera dom %{count} felen nedan
-  identity_proofs:
-    active: Aktiv
-    authorize: Ja, autentisera
-    authorize_connection_prompt: Autentisera den här kryptografiska anslutningen?
-    errors:
-      failed: Den kryptografiska anslutningen misslyckades. Vänligen försök igen från %{provider}.
-    i_am_html: Jag är %{username} på %{service}.
-    identity: Identitet
-    inactive: Inaktiv
-    publicize_checkbox: 'Och tuta det här:'
-    publicize_toot: 'Det är bevisat! Jag är %{username} på %{service}: %{url}'
-    remove: Ta bort bevis från konto
-    status: Bekräftelse-status
-    view_proof: Visa bevis
   imports:
     errors:
       over_rows_processing_limit: innehåller fler än %{count} rader
     modes:
+      merge: Slå ihop
+      merge_long: Behåll befintliga uppgifter och lägg till nya
       overwrite: Skriv över
+      overwrite_long: Ersätt de nuvarande uppgifterna med de nya
     preface: Du kan importera data som du exporterat från en annan instans, till exempel en lista över personer du följer eller blockerar.
     success: Dina uppgifter har laddats upp och kommer nu att behandlas snarast
     types:
@@ -867,6 +858,7 @@ sv:
   login_activities:
     authentication_methods:
       password: lösenord
+      sign_in_token: säkerhetskod för e-post
       webauthn: säkerhetsnycklar
     description_html: Om du ser aktivitet som du inte känner igen, överväg att byta ditt lösenord och aktivera tvåfaktor-autentisering.
   media_attachments:
@@ -883,6 +875,7 @@ sv:
       move_to_self: kan inte vara nuvarande konto
       not_found: kunde inte hittas
       on_cooldown: Du är på nerkylning
+    followers_count: Följare vid tidpunkten för flytten
     incoming_migrations: Flyttar från ett annat konto
     incoming_migrations_html: För att flytta från ett annat konto till det här så behöver du först <a href="%{path}">skapa ett konto-alias</a>.
     moved_msg: Ditt konto omdirigerar nu till %{acct} och dina följare flyttas över.
@@ -894,6 +887,7 @@ sv:
     redirecting_to: Ditt konto omdirigerar till %{acct}.
     set_redirect: Konfigurera omdirigering
     warning:
+      backreference_required: Det nya kontot måste först vara konfigurerat till att bakåt-referera till det här
       before: 'Vänligen läs dessa anteckningar noggrant innan du fortsätter:'
       followers: Den här åtgärden kommer att flytta alla följare från det nuvarande kontot till det nya kontot
       other_data: Ingen annan data kommer att flyttas automatiskt
@@ -912,8 +906,8 @@ sv:
         one: Du har också förvärvat en ny följare! Jippie!
         other: Du har också fått %{count} nya följare medans du var iväg! Otroligt!
       subject:
-        one: "1 nytt meddelande sedan ditt senaste besök \U0001F418"
-        other: "%{count} nya meddelanden sedan ditt senaste besök \U0001F418"
+        one: "1 nytt meddelande sedan ditt senaste besök 🐘"
+        other: "%{count} nya meddelanden sedan ditt senaste besök 🐘"
       title: I din frånvaro...
     favourite:
       body: 'Din status favoriserades av %{name}:'
@@ -930,7 +924,7 @@ sv:
       title: Ny följefterfrågning
     mention:
       action: Svar
-      body: 'Du nämndes av %{name} in:'
+      body: 'Du nämndes av %{name} i:'
       subject: Du nämndes av %{name}
       title: Ny omnämning
     poll:
@@ -957,7 +951,9 @@ sv:
           trillion: T
   otp_authentication:
     enable: Aktivera
+    instructions_html: "<strong>Skanna den här QR-koden i Google Authenticator eller en liknande TOTP-app i din telefon</strong>. Från och med nu så kommer den appen att generera symboler som du måste skriva in när du ska logga in."
     setup: Konfigurera
+    wrong_code: Den ifyllda koden är ogiltig! Är server-tiden och enhetens tid korrekt?
   pagination:
     newer: Nyare
     next: Nästa
@@ -967,6 +963,7 @@ sv:
   polls:
     errors:
       already_voted: Du har redan röstat på den här undersökningen
+      duplicate_options: innehåller dublett-objekt
       duration_too_long: är för långt in i framtiden
       duration_too_short: är för tidigt
       expired: Undersökningen har redan avslutats
@@ -1060,7 +1057,6 @@ sv:
     development: Utveckling
     edit_profile: Redigera profil
     export: Exportera data
-    identity_proofs: Identifiera bevisen
     import: Importera
     import_and_export: Import och export
     migrate: Kontoflytt
@@ -1085,18 +1081,19 @@ sv:
         other: "%{count} videor"
     boosted_from_html: Boosted från %{acct_link}
     content_warning: 'Innehållsvarning: %{warning}'
+    default_language: Samma som användargränssnittet
     disallowed_hashtags:
       one: 'innehöll en otillåten hashtag: %{tags}'
       other: 'innehöll de otillåtna hashtagarna: %{tags}'
+    edited_at_html: 'Ändrad: %{date}'
     errors:
       in_reply_not_found: Statusen du försöker svara på existerar inte.
-    language_detection: Lista ut språk automatiskt
     open_in_web: Öppna på webben
     over_character_limit: teckengräns på %{max} har överskridits
     pin_errors:
+      direct: Inlägg som endast är synliga för nämnda användare kan inte fästas
       limit: Du har redan fäst det maximala antalet toots
       ownership: Någon annans toot kan inte fästas
-      private: Icke-offentliga toot kan inte fästas
       reblog: Knuffar kan inte fästas
     poll:
       total_people:
@@ -1124,6 +1121,7 @@ sv:
     enabled: Ta automatiskt bort gamla inlägg
     exceptions: Undantag
     ignore_favs: Bortse från favoriter
+    interaction_exceptions: Undantag baserat på interaktioner
     keep_direct: Behåll direktmeddelanden
     keep_direct_hint: Tar inte bort någon av dina direktmeddelanden
     keep_media: Behåll inlägg med media-bilagor
@@ -1141,6 +1139,7 @@ sv:
       '2629746': 1 månad
       '31556952': 1 år
       '5259492': 2 månader
+      '604800': 1 vecka
       '63113904': 2 år
       '7889238': 3 månader
     min_age_label: Åldersgräns
@@ -1241,6 +1240,7 @@ sv:
     formats:
       default: "%b %d, %Y, %H:%M"
       month: "%b %Y"
+      time: "%H:%M"
   two_factor_authentication:
     add: Lägg till
     disable: Inaktivera
@@ -1256,16 +1256,16 @@ sv:
     recovery_instructions_html: Om du någonsin tappar åtkomst till din telefon kan du använda någon av återställningskoderna nedan för att återställa åtkomst till ditt konto. <strong> Håll återställningskoderna säkra </strong>. Du kan till exempel skriva ut dem och lagra dem med andra viktiga dokument.
     webauthn: Säkerhetsnycklar
   user_mailer:
+    appeal_approved:
+      action: Gå till ditt konto
     backup_ready:
       explanation: Du begärde en fullständig säkerhetskopiering av ditt Mastodon-konto. Det är nu klart för nedladdning!
       subject: Ditt arkiv är klart för nedladdning
       title: Arkivuttagning
-    sign_in_token:
-      details: 'Här är detaljerna för försöket:'
-      further_actions: 'Om det inte var du, vänligen ändra ditt lösenord och aktivera tvåfaktor-autentisering i ditt konto. Du kan göra det här:'
-      title: Inloggningsförsök
+    suspicious_sign_in:
+      change_password: Ändra ditt lösenord
     warning:
-      statuses: 'Specifikt för:'
+      reason: 'Anledning:'
       subject:
         disable: Ditt konto %{acct} har blivit fruset
         none: Varning för %{acct}
@@ -1274,7 +1274,6 @@ sv:
       title:
         disable: Kontot fruset
         none: Varning
-        sensitive: Ditt media har blivit markerat som känsligt
         silence: Kontot begränsat
         suspend: Kontot avstängt
     welcome:
@@ -1296,9 +1295,7 @@ sv:
       title: Välkommen ombord, %{name}!
   users:
     follow_limit_reached: Du kan inte följa fler än %{limit} personer
-    generic_access_help_html: Har du problem med att komma åt ditt konto? Du kan komma i kontakt med %{email} för assistans
     invalid_otp_token: Ogiltig tvåfaktorskod
-    invalid_sign_in_token: Ogiltig säkerhetskod
     otp_lost_help_html: Om du förlorat åtkomst till båda kan du komma i kontakt med %{email}
     seamless_external_login: Du är inloggad via en extern tjänst, så lösenord och e-postinställningar är inte tillgängliga.
     signed_in_as: 'Inloggad som:'

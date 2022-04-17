@@ -350,11 +350,11 @@ namespace :mastodon do
           end
         end.join("\n")
 
-        generated_header = "# Generated with mastodon:setup on #{Time.now.utc}\n\n"
+        generated_header = "# Generated with mastodon:setup on #{Time.now.utc}\n\n".dup
 
         if incompatible_syntax
-          generated_header << "Some variables in this file will be interpreted differently whether you are\n"
-          generated_header << "using docker-compose or not.\n\n"
+          generated_header << "# Some variables in this file will be interpreted differently whether you are\n"
+          generated_header << "# using docker-compose or not.\n\n"
         end
 
         File.write(Rails.root.join('.env.production'), "#{generated_header}#{env_contents}\n")
@@ -441,7 +441,7 @@ namespace :mastodon do
 
   namespace :webpush do
     desc 'Generate VAPID key'
-    task generate_vapid_key: :environment do
+    task :generate_vapid_key do
       vapid_key = Webpush.generate_key
       puts "VAPID_PRIVATE_KEY=#{vapid_key.private_key}"
       puts "VAPID_PUBLIC_KEY=#{vapid_key.public_key}"

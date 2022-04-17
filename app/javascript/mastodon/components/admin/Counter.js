@@ -32,6 +32,8 @@ export default class Counter extends React.PureComponent {
     end_at: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     href: PropTypes.string,
+    params: PropTypes.object,
+    target: PropTypes.string,
   };
 
   state = {
@@ -40,9 +42,9 @@ export default class Counter extends React.PureComponent {
   };
 
   componentDidMount () {
-    const { measure, start_at, end_at } = this.props;
+    const { measure, start_at, end_at, params } = this.props;
 
-    api().post('/api/v1/admin/measures', { keys: [measure], start_at, end_at }).then(res => {
+    api().post('/api/v1/admin/measures', { keys: [measure], start_at, end_at, [measure]: params }).then(res => {
       this.setState({
         loading: false,
         data: res.data,
@@ -53,7 +55,7 @@ export default class Counter extends React.PureComponent {
   }
 
   render () {
-    const { label, href } = this.props;
+    const { label, href, target } = this.props;
     const { loading, data } = this.state;
 
     let content;
@@ -67,12 +69,12 @@ export default class Counter extends React.PureComponent {
       );
     } else {
       const measure = data[0];
-      const percentChange = percIncrease(measure.previous_total * 1, measure.total * 1);
+      const percentChange = measure.previous_total && percIncrease(measure.previous_total * 1, measure.total * 1);
 
       content = (
         <React.Fragment>
-          <span className='sparkline__value__total'><FormattedNumber value={measure.total} /></span>
-          <span className={classNames('sparkline__value__change', { positive: percentChange > 0, negative: percentChange < 0 })}>{percentChange > 0 && '+'}<FormattedNumber value={percentChange} style='percent' /></span>
+          <span className='sparkline__value__total'>{measure.human_value || <FormattedNumber value={measure.total} />}</span>
+          {measure.previous_total && (<span className={classNames('sparkline__value__change', { positive: percentChange > 0, negative: percentChange < 0 })}>{percentChange > 0 && '+'}<FormattedNumber value={percentChange} style='percent' /></span>)}
         </React.Fragment>
       );
     }
@@ -99,7 +101,7 @@ export default class Counter extends React.PureComponent {
 
     if (href) {
       return (
-        <a href={href} className='sparkline'>
+        <a href={href} className='sparkline' target={target}>
           {inner}
         </a>
       );

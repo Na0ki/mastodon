@@ -17,7 +17,7 @@ Chewy.settings = {
 }
 
 # We use our own async strategy even outside the request-response
-# cycle, which takes care of checking if ElasticSearch is enabled
+# cycle, which takes care of checking if Elasticsearch is enabled
 # or not. However, mind that for the Rails console, the :urgent
 # strategy is set automatically with no way to override it.
 Chewy.root_strategy              = :custom_sidekiq
@@ -32,28 +32,8 @@ module Chewy
   end
 end
 
-# ElasticSearch uses Faraday internally. Faraday interprets the
+# Elasticsearch uses Faraday internally. Faraday interprets the
 # http_proxy env variable by default which leads to issues when
 # Mastodon is run with hidden services enabled, because
-# ElasticSearch is *not* supposed to be accessed through a proxy
+# Elasticsearch is *not* supposed to be accessed through a proxy
 Faraday.ignore_env_proxy = true
-
-# Elasticsearch 7.x workaround
-Elasticsearch::Transport::Client.prepend Module.new {
-  def search(arguments = {})
-    arguments[:rest_total_hits_as_int] = true
-    super arguments
-  end
-}
-
-Elasticsearch::API::Indices::IndicesClient.prepend Module.new {
-  def create(arguments = {})
-    arguments[:include_type_name] = true
-    super arguments
-  end
-
-  def put_mapping(arguments = {})
-    arguments[:include_type_name] = true
-    super arguments
-  end
-}
