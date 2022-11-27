@@ -10,19 +10,19 @@
 <feOffset dy="4"/>
 <feGaussianBlur stdDeviation="2"/>
 <feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.261224 0 0 0 0 0.16597 0 0 0 0 0.662652 0 0 0 0.4 0"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.261224 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0"/>
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2_2"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2_2" result="shape"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="4"/>
 <feGaussianBlur stdDeviation="2"/>
 <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.337255 0 0 0 0 0.227451 0 0 0 0 0.8 0 0 0 0.05 0"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.337255 0 0 0 0 0 0 0 0 0 0.8 0 0 0 0.05 0"/>
 <feBlend mode="normal" in2="shape" result="effect2_innerShadow_2_2"/>
 </filter>
 <linearGradient id="paint0_linear_2_2" x1="61" y1="130" x2="61" y2="-91.5" gradientUnits="userSpaceOnUse">
-<stop offset="0.0755157" stop-color="#563ACC"/>
-<stop offset="0.520094" stop-color="#6364FF"/>
+<stop offset="0.0755157" stop-color="#fc1998"/>
+<stop offset="0.520094" stop-color="#fc1998"/>
 </linearGradient>
 </defs>
 </svg>
