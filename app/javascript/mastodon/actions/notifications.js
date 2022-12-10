@@ -12,10 +12,8 @@ import { saveSettings } from './settings';
 import { defineMessages } from 'react-intl';
 import { List as ImmutableList } from 'immutable';
 import { unescapeHTML } from '../utils/html';
-import { getFiltersRegex } from '../selectors';
 import { usePendingItems as preferPendingItems } from 'mastodon/initial_state';
 import compareId from 'mastodon/compare_id';
-import { searchTextFromRawStatus } from 'mastodon/actions/importer/normalizer';
 import { requestNotificationPermission } from '../utils/notifications';
 
 export const NOTIFICATIONS_UPDATE      = 'NOTIFICATIONS_UPDATE';
@@ -62,20 +60,17 @@ export function updateNotifications(notification, intlMessages, intlLocale) {
     const showInColumn = activeFilter === 'all' ? getState().getIn(['settings', 'notifications', 'shows', notification.type], true) : activeFilter === notification.type;
     const showAlert    = getState().getIn(['settings', 'notifications', 'alerts', notification.type], true);
     const playSound    = getState().getIn(['settings', 'notifications', 'sounds', notification.type], true);
-    const filters      = getFiltersRegex(getState(), { contextType: 'notifications' });
 
     let filtered = false;
 
-    if (['mention', 'status'].includes(notification.type)) {
-      const dropRegex   = filters[0];
-      const regex       = filters[1];
-      const searchIndex = searchTextFromRawStatus(notification.status);
+    if (['mention', 'status'].includes(notification.type) && notification.status.filtered) {
+      const filters = notification.status.filtered.filter(result => result.filter.context.includes('notifications'));
 
-      if (dropRegex && dropRegex.test(searchIndex)) {
+      if (filters.some(result => result.filter.filter_action === 'hide')) {
         return;
       }
 
-      filtered = regex && regex.test(searchIndex);
+      filtered = filters.length > 0;
     }
 
     if (['follow_request'].includes(notification.type)) {
@@ -102,6 +97,10 @@ export function updateNotifications(notification, intlMessages, intlLocale) {
 
       if (notification.status) {
         dispatch(importFetchedStatus(notification.status));
+      }
+
+      if (notification.report) {
+        dispatch(importFetchedAccount(notification.report.target_account));
       }
 
       dispatch({
@@ -147,6 +146,7 @@ const excludeTypesFromFilter = filter => {
     'status',
     'update',
     'admin.sign_up',
+    'admin.report',
   ]);
 
   return allTypes.filterNot(item => item === filter).toJS();
@@ -154,15 +154,22 @@ const excludeTypesFromFilter = filter => {
 
 const noOp = () => {};
 
-export function expandNotifications({ maxId } = {}, done = noOp) {
+let expandNotificationsController = new AbortController();
+
+export function expandNotifications({ maxId, forceLoad } = {}, done = noOp) {
   return (dispatch, getState) => {
     const activeFilter = getState().getIn(['settings', 'notifications', 'quickFilter', 'active']);
     const notifications = getState().get('notifications');
     const isLoadingMore = !!maxId;
 
     if (notifications.get('isLoading')) {
-      done();
-      return;
+      if (forceLoad) {
+        expandNotificationsController.abort();
+        expandNotificationsController = new AbortController();
+      } else {
+        done();
+        return;
+      }
     }
 
     const params = {
@@ -187,11 +194,12 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
 
     dispatch(expandNotificationsRequest(isLoadingMore));
 
-    api(getState).get('/api/v1/notifications', { params }).then(response => {
+    api(getState).get('/api/v1/notifications', { params, signal: expandNotificationsController.signal }).then(response => {
       const next = getLinks(response).refs.find(link => link.rel === 'next');
 
       dispatch(importFetchedAccounts(response.data.map(item => item.account)));
       dispatch(importFetchedStatuses(response.data.map(item => item.status).filter(status => !!status)));
+      dispatch(importFetchedAccounts(response.data.filter(item => item.report).map(item => item.report.target_account)));
 
       dispatch(expandNotificationsSuccess(response.data, next ? next.uri : null, isLoadingMore, isLoadingRecent, isLoadingRecent && preferPendingItems));
       fetchRelatedRelationships(dispatch, response.data);
@@ -227,7 +235,7 @@ export function expandNotificationsFail(error, isLoadingMore) {
     type: NOTIFICATIONS_EXPAND_FAIL,
     error,
     skipLoading: !isLoadingMore,
-    skipAlert: !isLoadingMore,
+    skipAlert: !isLoadingMore || error.name === 'AbortError',
   };
 };
 
@@ -255,7 +263,7 @@ export function setFilter (filterType) {
       path: ['notifications', 'quickFilter', 'active'],
       value: filterType,
     });
-    dispatch(expandNotifications());
+    dispatch(expandNotifications({ forceLoad: true }));
     dispatch(saveSettings());
   };
 };
