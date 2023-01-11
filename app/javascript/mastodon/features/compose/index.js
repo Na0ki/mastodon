@@ -18,6 +18,7 @@ import Icon from 'mastodon/components/icon';
 import { logOut } from 'mastodon/utils/log_out';
 import Column from 'mastodon/components/column';
 import { Helmet } from 'react-helmet';
+import { isMobile } from '../../is_mobile';
 import MikutterAnnouncements from './components/announcements';
 
 const messages = defineMessages({
@@ -116,7 +117,7 @@ class Compose extends React.PureComponent {
             <div className='drawer__inner' onFocus={this.onFocus}>
               <NavigationContainer onClose={this.onBlur} />
 
-              <ComposeFormContainer />
+              <ComposeFormContainer autoFocus={!isMobile(window.innerWidth)} />
 
               <MikutterAnnouncements />
 
