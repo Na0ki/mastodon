@@ -9,19 +9,19 @@ module Mastodon
     end
 
     def minor
-      0
+      1
     end
 
     def patch
-      2
+      3
     end
 
     def flags
-      ''
+      ENV.fetch('MASTODON_VERSION_FLAGS', '')
     end
 
     def suffix
-      ''
+      ENV.fetch('MASTODON_VERSION_SUFFIX', '')
     end
 
     def to_a
