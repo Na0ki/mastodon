@@ -108,7 +108,7 @@ export function updateNotifications(notification, intlMessages, intlLocale) {
       }
 
 
-      dispatch(notificationsUpdate({ notification, preferPendingItems, playSound: playSound && !filtered}));
+      dispatch(notificationsUpdate({ notification, preferPendingItems, playSound: playSound && !filtered, sound }));
     } else if (playSound && !filtered) {
       dispatch({
         type: NOTIFICATIONS_UPDATE_NOOP,
